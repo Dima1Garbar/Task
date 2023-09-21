@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Task 1</title>
+</head>
+<body class="page">
+    <div class = "contect_container">
+        <div class="heroes_attr">
+            <h1 class="title_name_attr"> Strenght</h1>
+            <div class="strenght_line line"></div>
+            <div id="strenght_of_heroes"></div>
+        </div>
+        <div class="heroes_attr">
+            <h1 class="title_name_attr"> Agility</h1> 
+            <div class="agility_line line"></div>
+            <div id="agility_of_heroes"></div>
+        </div>
+        <div class="heroes_attr" >
+            <h1 class="title_name_attr"> Intelligence</h1> 
+            <div class="intelligence_line line"></div>
+            <div id="intelligence_of_heroes"></div>
+        </div>
+        <div class="heroes_attr">
+            <h1 class="title_name_attr"> Universal</h1> 
+            <div class="universalt_line line"></div>
+            <div id="universa_of_heroes"></div>
+
+        </div>
+    </div>
+   
+</body>
+<script>
+    let url = 'https://api.opendota.com/api/herostats';
+    let data = [];
+    //Получаю елементи з html по Id в які буду додавати фотографії героїв
+    let strenght_of_heroes = document.getElementById('strenght_of_heroes');
+    let agility_of_heroes = document.getElementById('agility_of_heroes');
+    let intelligence_of_heroes = document.getElementById('intelligence_of_heroes');
+    let universa_of_heroes = document.getElementById('universa_of_heroes');
+
+fetch(url)
+  .then((response) => {
+    return response.json();
+  })
+  .then((response) => {
+    response.forEach((hero) => {
+        //створюю елемент img
+        let listItem = document.createElement('img' );
+        //додаю до цього елемента class = attributes
+        listItem.classList.add("attributes")
+        // присвоюю цьому елементу силки на фото
+        listItem.src = "https://api.opendota.com" + hero.img;
+        //Розподіл героїв за атрибутами і в залужності від атрибути додаю елементи через ід
+        if (hero.primary_attr === "str"){
+            strenght_of_heroes.appendChild(listItem);}
+        else if (hero.primary_attr === "agi"){
+            agility_of_heroes.appendChild(listItem);}
+        else if (hero.primary_attr === "all"){
+            universa_of_heroes.appendChild(listItem);}
+        else {
+            intelligence_of_heroes.appendChild(listItem);}
+        })
+    });
+
+    //const heroName = data.find((name, index) => index  === 3);
+  
+
+</script>
+
+</html>
